@@ -1,0 +1,263 @@
+---
+title: "Introduction to statistics"
+subtitle: "with applications in R"
+author: "Dr. Jigme Tenzin"
+institute: "College of Natural Resources"
+date: "13 January 2021"
+output:
+  xaringan::moon_reader:
+    chakra: libs/remark-latest.min.js
+    css:
+      - default
+      - css/cnr.css
+      - css/cnr-fonts.css
+    lib_dir: libs
+    seal: false
+    nature:
+      highlightStyle: googlecode
+      highlightLines: true
+      highlightLanguage: ["r"]
+      countIncrementalSlides: false
+      ratio: "16:9"
+    includes:
+      after_body: [css/insert-logo.html]
+---
+
+
+```{r setup, include = FALSE}
+library(knitr)
+library(ggplot2)
+library(tidyverse)
+library(nhsrtheme)
+library(xaringanExtra)
+library(icon)
+xaringanExtra::use_tile_view()
+xaringanExtra::use_share_again()
+xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,
+  mute_unhighlighted_code = TRUE
+)
+style_panelset_tabs(foreground = "honeydew", background = "seagreen")
+xaringanExtra::use_editable(expires = 1)
+# set default options
+opts_chunk$set(echo = TRUE,
+               fig.width = 7.252,
+               fig.height = 4,
+               dpi = 300
+               )
+
+# uncomment the following lines if you want to use the NHS-R theme colours by default
+# scale_fill_continuous <- partial(scale_fill_nhs, discrete = FALSE)
+# scale_fill_discrete <- partial(scale_fill_nhs, discrete = TRUE)
+# scale_colour_continuous <- partial(scale_colour_nhs, discrete = FALSE)
+# scale_colour_discrete <- partial(scale_colour_nhs, discrete = TRUE)
+```
+
+class: title-slide, left, bottom
+
+# `r rmarkdown::metadata$title`
+----
+## **`r rmarkdown::metadata$subtitle`**
+### `r rmarkdown::metadata$author`
+### `r rmarkdown::metadata$date`
+
+
+---
+class: center, top
+# About me
+
+<img src ="img/jigme.jpg" width= "200", border-radius=50%>
+
+### Dr. Jigme Tenzin
+
+Department of Animal Science <br>
+College of Natural Resources <br>
+Royal University of Bhutan <br>
+```{r echo=FALSE, fig.show='asis'}
+icon::fontawesome('twitter')
+```
+[tenz_jigme](http://twitter.com/tenz_jigme)
+```{r echo=FALSE, fig.show='asis'}
+icon::fontawesome('envelope')
+```
+[jtenzin.cnr@rub.edu.bt](mailto:jtenzin.cnr@rub.edu.bt)
+```{r echo=FALSE, fig.show='asis'}
+icon::fontawesome('telegram')
+```
+[jigme77](https://t.me/Jigme77)
+
+---
+class: left, top
+
+# Definition of terms 
+----
+
+--
+### Statistics
+
+Collect, analyze, summarize, interpret, and draw conclusions from the data
+or actual numeric descriptions of sample data 
+
+--
+### Data
+Any observations that you have collected or informatin gathered
+
+--
+### Population
+The complete set of elements that are being studied or a particular group of interest
+
+???
+Population example: 
+All males in the world.
+All females in the world.
+All children between 6 - 9 years of age.
+
+--
+### Samples
+Some subset of a population or subset of population from which data is collected
+
+--
+### Census
+Collecting from every member of a population
+
+---
+class: left, top
+
+# Definiton of terms
+----
+.panelset[
+.panel[.panel-name[Parameter]
+### Parameter
+A characteristics of a population (*mnemonic*: P-P) or numerical description of a poulation characteristics.
+#### Examples
+ - Mean height of all males in the world
+ - Mean IQ of all females in Bhutan
+ - 75% of all kids ages between 6 - 9 play video games
+]
+
+.panel[.panel-name[Statistics]
+### Statistics
+A characteristics of a sample (*mnemonic*: S-S) or numerical description of sample characteristics
+
+#### Examples
+- of 100 female asked, 47% dislike chocolate.
+]
+]
+
+---
+class: left, top
+
+## Branches of statistics
+
+.panelset[
+.panel[.panel-name[Descriptive statistics]
+Gather, sort, and summarize data from samples.
+
+#### Examples
+- 65% of seniors in local high school applying to college plan to major in business
+]
+
+.panel[.panel-name[Inferential statistics]
+It uses descriptive statistics (data) to estimate population parameters.
+
+#### Examples
+- Based on phone survey, 22% of all men don't like football
+]
+
+]
+
+---
+class: left
+
+# Applying definitions in statistics
+ 
+--
+#### The height of every fourth bottle in assembly line. Sample or population?
+
+--
+.can-edit[
+ - Type the answer here]
+
+--
+#### Ages of all USA presidents. Population or sample?
+
+--
+.can-edit[
+- Type the answer here]
+
+#### A researcher stops 100 people in a store to survey household income. Identify population and the sample.
+.can-edit[
+* Population: 
+* Sample:
+]
+
+#### Average number of hours per week a sample of 10 year olds spends watching is 20 hours. What is it represent: parameter or statistics? 
+.can-edit[
+* Type your answer here
+]
+
+#### 87% of all patients in a hospital report having an alcohol problem. Is it a parameter or statistic?
+.can-edit[
+* Type your answer here
+]
+
+
+---
+class: left, top
+# Introduction to R
+----
+
+
+.pull-left[
+[R installation can be done from here](https://cran.r-project.org/)
+
+### It is like a giant calculator
+```{r basic-calc, echo=TRUE}
+2 + 2 # Addition
+2 - 4 # Subtraction
+3 * 2 # Multiplication
+```
+
+]
+
+.pull-right[
+## Why use R?
+### Advantages of R
+- Free and open source
+- High quality plots
+- Reproducible reports 
+- Continuously growing
+- Many packages
+
+### Disadvantages 
+- Complicated language
+- Spread across various packages
+- Inefficient memory allocation
+]
+
+---
+class: center, left
+# Histogram 
+----
+.pull-left[
+```{r first-plot, fig.height=5, echo=FALSE}
+hist(mpg$hwy, 
+     xlab = "Highway mileage", 
+     ylab = "Number of cars", 
+     main = "Histogram of mileage on Highway for different models of car")
+```
+]
+
+.pull-right[
+```{r, ref.label = 'first-plot', echo=TRUE, fig.show ='hide'}
+```
+]
+
+## "Can use minimal codes to produce publication quality charts."
+
+
+
+
+
